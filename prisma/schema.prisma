@@ -19,16 +19,27 @@ model User {
   verified        Boolean       @default(false)
   verifying       Boolean       @default(false)
   pending_KYC     Boolean       @default(false)
-  transaction_id  Int?          @unique
+  // transaction_id  Int?          @unique
   verification_id Int?          @unique
   currency        String        @default("$")
-  transaction     Transaction?  @relation(fields: [transaction_id], references: [id])
+  transactions    Transaction[]
   verification    Verification? @relation(fields: [verification_id], references: [id])
 }
 
 model Transaction {
-  id    Int   @id @default(autoincrement())
-  users User?
+  id             Int      @id @default(autoincrement())
+  account        User     @relation(fields: [userAccount_no], references: [account_no])
+  amount         Int
+  charge         Int      @default(0)
+  type           String   @default("Deposit")
+  condition      String   @default("Completed")
+  cr_or_dr       String
+  currency       String
+  from           String   @default("Admin")
+  to             String
+  created_at     DateTime @default(now())
+  userAccount_no Int
+  note           String   @default("")
 }
 
 model Verification {

@@ -7,7 +7,8 @@ const {
 	updateUser,
 	crAccBal,
 	dbAccBal,
-	updateVerification
+	updateVerification,
+	getAllTransactions
 } = require('../../controllers/adminController');
 
 const router = require('express').Router();
@@ -19,6 +20,7 @@ const router = require('express').Router();
 router.route('updateUser').put(verifyAdmin, updateUser);
 
 router.route('/credit-acc').post(crAccBal);
+router.route('/all-transactions').get(getAllTransactions);
 router.route('/verify-doc').put(updateVerification);
 
 router.route('/debit-acc').post(dbAccBal);

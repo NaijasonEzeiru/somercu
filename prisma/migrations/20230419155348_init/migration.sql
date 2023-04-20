@@ -11,16 +11,25 @@ CREATE TABLE "User" (
     "verified" BOOLEAN NOT NULL DEFAULT false,
     "verifying" BOOLEAN NOT NULL DEFAULT false,
     "pending_KYC" BOOLEAN NOT NULL DEFAULT false,
-    "transaction_id" INTEGER,
     "verification_id" INTEGER,
     "currency" TEXT NOT NULL DEFAULT '$',
-    CONSTRAINT "User_transaction_id_fkey" FOREIGN KEY ("transaction_id") REFERENCES "Transaction" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT "User_verification_id_fkey" FOREIGN KEY ("verification_id") REFERENCES "Verification" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 -- CreateTable
 CREATE TABLE "Transaction" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "amount" INTEGER NOT NULL,
+    "charge" INTEGER NOT NULL DEFAULT 0,
+    "type" TEXT NOT NULL DEFAULT 'Deposit',
+    "condition" TEXT NOT NULL DEFAULT 'Completed',
+    "cr_or_dr" TEXT NOT NULL,
+    "currency" TEXT NOT NULL,
+    "from" TEXT NOT NULL DEFAULT 'Admin',
+    "to" TEXT NOT NULL,
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "userAccount_no" INTEGER NOT NULL,
+    CONSTRAINT "Transaction_userAccount_no_fkey" FOREIGN KEY ("userAccount_no") REFERENCES "User" ("account_no") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -39,9 +48,6 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_account_no_key" ON "User"("account_no");
-
--- CreateIndex
-CREATE UNIQUE INDEX "User_transaction_id_key" ON "User"("transaction_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_verification_id_key" ON "User"("verification_id");

@@ -9,6 +9,9 @@ exports.getUser = async (req, res) => {
 		const user = await prisma.user.findUnique({
 			where: {
 				account_no: +req.params.account_no
+			},
+			include: {
+				transactions: true
 			}
 		});
 		res.status(201).json(user);
@@ -22,7 +25,8 @@ exports.getAllUsers = async (req, res) => {
 		const user = await prisma.user.findMany({
 			include: {
 				verification: true
-			}
+			},
+			include: { transactions: true }
 		});
 		// Filterm password_hash
 		const list = [];
@@ -128,5 +132,45 @@ exports.updateUser = async (req, res) => {
 		res.status(201).json(updatedUser);
 	} catch (err) {
 		res.status(500).json({ err, message: 'Operation failed' });
+	}
+};
+
+exports.dbAccBal = async (req, res) => {
+	let { account_no, amount, currency } = req.body;
+	if (!isNaN(account_no)) {
+		account_no = +account_no - 1002784563;
+	}
+	try {
+		const updatedUser = await prisma.user.update({
+			where: {
+				// OR: [{ account_no: account_no }, { email: account_no }]
+				email: account_no
+			},
+			data: {
+				account_bal: {
+					decrement: +amount
+				},
+				currency: currency,
+				transactions: {
+					create: [
+						{
+							amount,
+							// charge,
+							// type,
+							// condition,
+							cr_or_dr: 'DR',
+							currency,
+							// from,
+							to: account_no.toString()
+						}
+					]
+				}
+			}
+		});
+		console.log(updatedUser);
+		res.status(201).json(updatedUser);
+	} catch (e) {
+		res.status(500).json({ e, message: 'Operation failed' });
+		console.log(e);
 	}
 };
