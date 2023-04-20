@@ -1,7 +1,7 @@
 const whitelist = [
-	'http://localhost:4000',
+	'https://somercu.onrender.com',
 	'https://kesa-bank-sigma.vercel.app',
-	'http://localhost:4000'
+	'https://somercu.onrender.com'
 ];
 const corsOptions = {
 	origin: (origin, callback) => {

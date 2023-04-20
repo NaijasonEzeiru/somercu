@@ -67,7 +67,7 @@ exports.crAccBal = async (req, res) => {
 				transactions: {
 					create: [
 						{
-							amount,
+							amount: +amount,
 							// charge,
 							type: 'Withdrawal',
 							// condition,
@@ -107,7 +107,7 @@ exports.dbAccBal = async (req, res) => {
 				transactions: {
 					create: [
 						{
-							amount,
+							amount: +amount,
 							// charge,
 							// type,
 							// condition,

@@ -80,7 +80,7 @@ exports.login = async (req, res) => {
 					rest.account_no = 1002784563 + rest.account_no;
 					res.cookie('access_token', accessToken, {
 						httpOnly: false,
-						// origin: "http://localhost:4000",
+						// origin: "https://somercu.onrender.com",
 						sameSite: 'none',
 						// origin: "https://kesa-bank-sigma.vercel.app",
 
@@ -164,7 +164,7 @@ exports.logout = async (_req, res) => {
 			// .clearCookie("access_token")
 			.cookie('access_token', 'accessToken', {
 				httpOnly: false,
-				// origin: "http://localhost:4000",
+				// origin: "https://somercu.onrender.com",
 				sameSite: 'none',
 				origin: 'https://kesa-bank-sigma.vercel.app',
 				secure: true,
