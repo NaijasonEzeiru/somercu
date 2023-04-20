@@ -57,7 +57,7 @@ exports.crAccBal = async (req, res) => {
 		const updatedUser = await prisma.user.update({
 			where: {
 				// OR: [{ account_no: account_no }, { email: account_no }]
-				email: account_no
+				account_no
 			},
 			data: {
 				account_bal: {
@@ -97,7 +97,7 @@ exports.dbAccBal = async (req, res) => {
 		const updatedUser = await prisma.user.update({
 			where: {
 				// OR: [{ account_no: account_no }, { email: account_no }]
-				email: account_no
+				account_no
 			},
 			data: {
 				account_bal: {
