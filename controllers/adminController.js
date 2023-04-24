@@ -170,7 +170,8 @@ exports.updateVerification = async (req, res) => {
 				account_no: +account_no
 			},
 			data: {
-				verified: true
+				verified: true,
+				verifying: false
 			}
 		});
 		res.status(201).json({ message: 'Verified Successfully' });
