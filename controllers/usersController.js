@@ -11,7 +11,7 @@ exports.getUser = async (req, res) => {
 				account_no: +req.params.account_no
 			},
 			include: {
-				verification: true
+				transactions: true
 			}
 		});
 		res.status(201).json(user);
@@ -24,9 +24,9 @@ exports.getAllUsers = async (req, res) => {
 	try {
 		const user = await prisma.user.findMany({
 			include: {
-				verification: true
-			},
-			include: { transactions: true }
+				verification: true,
+				transactions: true
+			}
 		});
 		// Filterm password_hash
 		const list = [];

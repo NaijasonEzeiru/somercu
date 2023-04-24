@@ -8,7 +8,8 @@ const {
 	crAccBal,
 	dbAccBal,
 	updateVerification,
-	getAllTransactions
+	getAllTransactions,
+	getKycs
 } = require('../../controllers/adminController');
 
 const router = require('express').Router();
@@ -18,6 +19,7 @@ const router = require('express').Router();
 // router.route("/createUser").get(verifyAdmin, createUser);
 
 router.route('updateUser').put(verifyAdmin, updateUser);
+router.route('get-kycs').put(getKycs);
 
 router.route('/credit-acc').post(crAccBal);
 router.route('/all-transactions').get(getAllTransactions);

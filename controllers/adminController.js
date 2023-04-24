@@ -17,6 +17,15 @@ exports.getUser = async (req, res) => {
 	}
 };
 
+exports.getKycs = async (req, res) => {
+	try {
+		const kyc = await prisma.verification.findMany();
+		res.status(201).json(kyc);
+	} catch (err) {
+		res.status(500).json({ err, message: 'No KYC yet' });
+	}
+};
+
 exports.getAllTransactions = async (req, res) => {
 	try {
 		const user = await prisma.transaction.findMany();
