@@ -11,7 +11,7 @@ exports.getUser = async (req, res) => {
 				account_no: +req.params.account_no
 			},
 			include: {
-				transactions: true
+				verification: true
 			}
 		});
 		res.status(201).json(user);
