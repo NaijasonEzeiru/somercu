@@ -180,3 +180,31 @@ exports.updateVerification = async (req, res) => {
 		console.log(e);
 	}
 };
+
+exports.updateTransaction = async (req, res) => {
+	let { id, amount, created_at, charge, currency, difference } = req.body;
+
+	try {
+		await prisma.transaction.update({
+			where: {
+				id: +id
+			},
+			data: {
+				amount,
+				created_at,
+				charge,
+				currency,
+				account: {
+					update: {
+						currency,
+						account_bal: { increment: difference }
+					}
+				}
+			}
+		});
+		res.status(201).json({ message: 'Updated Successfully' });
+	} catch (e) {
+		res.status(500).json({ e, message: 'Operation failed' });
+		console.log(e);
+	}
+};

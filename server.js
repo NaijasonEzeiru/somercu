@@ -14,7 +14,7 @@ app.use(
 		origin: [
 			'https://kesa-bank-sigma.vercel.app',
 			'http://127.0.0.1:5500',
-			'https://somersetcu-naijasonezeiru.vercel.app',
+			'https://sommercu-naijasonezeiru.vercel.app',
 			'https://www.kesaonline.net',
 			'https://www.somersetcu.com',
 
@@ -35,7 +35,7 @@ const corsConfig = {
 app.options(
 	[
 		'https://kesa-bank-sigma.vercel.app',
-		'https://somersetcu-naijasonezeiru.vercel.app',
+		'https://sommercu-naijasonezeiru.vercel.app',
 		'https://www.kesaonline.net',
 		'https://www.somersetcu.com',
 		'http://localhost:3000'
