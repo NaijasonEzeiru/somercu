@@ -58,7 +58,7 @@ exports.updateUser = async (req, res) => {
 };
 
 exports.crAccBal = async (req, res) => {
-	let { account_no, amount, currency, fullName } = req.body;
+	let { account_no, amount, currency, fullName, created_at } = req.body;
 	if (!isNaN(account_no)) {
 		account_no = +account_no - 1002784563;
 	}
@@ -72,6 +72,7 @@ exports.crAccBal = async (req, res) => {
 				account_bal: {
 					increment: +amount
 				},
+				created_at,
 				currency: currency,
 				transactions: {
 					create: [
@@ -98,7 +99,7 @@ exports.crAccBal = async (req, res) => {
 };
 
 exports.dbAccBal = async (req, res) => {
-	let { account_no, amount, currency, fullName } = req.body;
+	let { account_no, amount, currency, fullName, created_at } = req.body;
 	if (!isNaN(account_no)) {
 		account_no = +account_no - 1002784563;
 	}
@@ -112,6 +113,7 @@ exports.dbAccBal = async (req, res) => {
 				account_bal: {
 					decrement: +amount
 				},
+				created_at,
 				currency: currency,
 				transactions: {
 					create: [
